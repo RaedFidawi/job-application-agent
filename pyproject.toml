@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "job-agent"
+version = "0.1.0"
+description = "A LangGraph agent that tailors your resume and cover letter to a job posting, with fact-checking and human review."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Raed Fidawi" }]
+keywords = ["langgraph", "langchain", "claude", "ai-agent", "resume", "cover-letter", "job-search"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "langgraph>=1.2,<2",
+    "langgraph-checkpoint-sqlite>=3.1",
+    "langchain-anthropic>=1.7.10",
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "pypdf>=5",
+    "python-dotenv>=1",
+    "streamlit>=1.40",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "langgraph-cli[inmem]>=0.4", "ruff>=0.8"]
+
+[project.scripts]
+job-agent = "job_agent.cli:main"
+job-agent-web = "job_agent.cli:web"
+
+[project.urls]
+Homepage = "https://github.com/RaedFidawi/Job-Application-Agent"
+Issues = "https://github.com/RaedFidawi/Job-Application-Agent/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/job_agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
